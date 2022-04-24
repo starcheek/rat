@@ -1,10 +1,8 @@
 import os
 import sys
-
 import tabulate
 
-
-class PULL:
+class OUT:
 
     WHITE = '\033[1m\033[0m'
     PURPLE = '\033[1m\033[95m'
@@ -44,35 +42,67 @@ class PULL:
         self.UNDERLINE = ''
         self.END = ''
 
+    def make_white(self, mess):
+        return self.WHITE + mess + self.END
+
+    def make_purple(self, mess):
+        return self.PURPLE + mess + self.END
+
+    def make_cyan(self, mess):
+        return self.CYAN + mess + self.END
+
+    def make_darkcyan(self, mess):
+        return self.DARKCYAN + mess + self.END
+
+    def make_blue(self, mess):
+        return self.BLUE + mess + self.END
+
+    def make_green(self, mess):
+        return self.GREEN + mess + self.END
+
+    def make_yellow(self, mess):
+        return self.YELLOW + mess + self.END
+
+    def make_red(self, mess):
+        return self.RED + mess + self.END
+
+    def make_bold(self, mess):
+        return self.BOLD + mess + self.END
+
+    def make_underline(self, mess):
+        return self.UNDERLINE + mess + self.END
+
     def get_com(self, mss=()):
         if mss:
-            rtval = input(self.DARKCYAN + "$" + self.END + " [" + self.GREEN + mss[1].ip + self.END + ":" + self.RED + str(mss[1].port) + self.END + "] ")
+            rtval = input(
+                self.DARKCYAN + "$" + self.END + " [" + self.GREEN + mss[1].ip + self.END + ":" + self.RED + str(
+                    mss[1].port) + self.END + "] ")
         else:
             rtval = input(self.DARKCYAN + "$" + self.END + " ")
         rtval = rtval.rstrip(" ").lstrip(" ")
         return rtval
 
-    def print(self, mess):
-        print(self.GREEN + "[" + self.UNDERLINE + "*" + self.END + self.GREEN + "] " + self.END + mess + self.END)
+    def success(self, mess):
+        print(self.make_green(mess))
 
     def function(self, mess):
-        print(self.BLUE + "[" + self.UNDERLINE + ":" + self.END + self.BLUE + "] " + self.END + mess + self.END)
+        print(self.make_blue(mess))
 
     def error(self, mess):
-        print(self.RED + "[" + self.UNDERLINE + "!" + self.END + self.RED + "] " + self.END + mess + self.END)
+        print(self.make_red(mess))
 
     def exit(self, mess=""):
-        sys.exit(self.RED + "[" + self.UNDERLINE + "~" + self.END + self.RED + "] " + self.END + mess + self.END)
+        sys.exit(self.make_red(mess))
 
     def help_c_current(self):
-        headers = (pull.BOLD + 'Command' + pull.END, pull.BOLD + 'Description' + pull.END)
-        lister  = [
+        headers = (self.BOLD + 'Command' + self.END, self.BOLD + 'Description' + self.END)
+        lister = [
             ('help', 'Shows manual for commands'),
             ('sessions', 'Show all connected clients to the server'),
             ('connect', 'Connect to a Specific Client'),
             ('disconnect', 'Disconnect from Current Client'),
             ('clear', 'Clear Screen'),
-            ('shell'  , 'Launch a New Terminal/Shell.'),
+            ('shell', 'Launch a New Terminal/Shell.'),
             ('keylogger', 'KeyLogger Module'),
             ('sysinfo', 'Dump System, Processor, CPU and Network Information'),
             ('screenshot', 'Take Screenshot on Target Machine and Save on Local'),
@@ -83,8 +113,8 @@ class PULL:
         sys.stdout.write("\n")
 
     def help_c_general(self):
-        headers = (pull.BOLD + 'Command' + pull.END, pull.BOLD + 'Description' + pull.END)
-        lister  = [
+        headers = (self.BOLD + 'Command' + self.END, self.BOLD + 'Description' + self.END)
+        lister = [
             ('help', 'Shows manual for commands'),
             ('sessions', 'Show all connected clients to the server'),
             ('connect', 'Connect to a Specific Client'),
@@ -110,8 +140,9 @@ class PULL:
         print("Arguments  : Session ID")
         print("Example    : \n")
         print("$ connect 56\n")
-        headers = (pull.BOLD + 'Argument' + pull.END, pull.BOLD + 'Type' + pull.END, pull.BOLD + 'Description' + pull.END)
-        lister  = [
+        headers = (
+        self.BOLD + 'Argument' + self.END, self.BOLD + 'Type' + self.END, self.BOLD + 'Description' + self.END)
+        lister = [
             ('ID', 'integer', 'ID of the sessions from the list')
         ]
         print(tabulate.tabulate(lister, headers=headers))
@@ -149,8 +180,8 @@ class PULL:
         print("$ keylogger on")
         print("$ keylogger off")
         print("$ keylogger dump\n")
-        headers = (pull.BOLD + 'Argument' + pull.END, pull.BOLD + 'Description' + pull.END)
-        lister  = [
+        headers = (self.BOLD + 'Argument' + self.END, self.BOLD + 'Description' + self.END)
+        lister = [
             ('on', 'Turn Keylogger on'),
             ('off', 'Turn Keylogger off'),
             ('dump', 'Dump keylogs')
@@ -174,20 +205,5 @@ class PULL:
         print("$ screenshot")
         sys.stdout.write("\n")
 
-    def help_overall(self):
-        global __HELP_OVERALL__
-        print(__HELP_OVERALL__)
-        sys.exit(0)
 
-    def help_bind(self):
-        global __HELP_BIND__
-        print(__HELP_BIND__)
-        sys.exit(0)
-
-    def help_generate(self):
-        global __HELP_GENERATE__
-        print(__HELP_GENERATE__)
-        sys.exit(0)
-
-
-pull = PULL()
+output = OUT()

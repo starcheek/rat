@@ -1,14 +1,11 @@
 import argparse
-
-from common.output import pull
-from generator import GENERATOR
-from parser import PARSER
+from common.output import output
 from server import SERVER
-
+from generator import GENERATOR
+from custom_parser import PARSER
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
-
     parser.add_argument('mode', nargs="?", help="Moder")
     parser.add_argument('-h', '--help', dest="help", default=False, action="store_true", help="Help Manual")
     parser.add_argument('-a', '--address', dest="address", default="", type=str, help="Address to Bind to")
@@ -28,7 +25,7 @@ def main():
         server.launch()
         server.close()
     elif parser.mode == "generate":
-        pull.function("Starting Generator Mode!")
+        output.function("Starting Generator Mode!")
         generator = GENERATOR(parser)
         if generator.source:
             generator.patch()
@@ -36,7 +33,6 @@ def main():
             generator.generate()
             generator.compile()
             generator.clean()
-        pull.function("Done")
 
 
 if __name__ == "__main__":
