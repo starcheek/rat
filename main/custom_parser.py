@@ -1,7 +1,7 @@
 import os
 import sys
 
-from common.output import output
+from common.output import *
 from common.constants import HELP_OVERALL, HELP_BIND, HELP_GENERATE
 
 
@@ -32,7 +32,7 @@ class PARSER:
                 elif self.mode == "generate":
                     print(HELP_GENERATE)
                 else:
-                    output.help_help()
+                    help()
             sys.exit()
 
     def v_address(self, str):
@@ -40,10 +40,10 @@ class PARSER:
 
     def v_port(self, port):
         if not port:
-            output.print_red("You need to Supply a Valid Port Number")
+            print_red("You need to Supply a Valid Port Number")
 
         if port <= 0 or port > 65535:
-            output.print_red("Invalid Port Number")
+            print_red("Invalid Port Number")
 
         return port
 
@@ -52,16 +52,16 @@ class PARSER:
             if val in self.COMMANDS:
                 return val
             else:
-                output.print_red("No such command found in database")
+                print_red("No such command found in database")
         else:
             if not hl:
-                output.print_red("Invalid Syntax. Refer to the manual!")
+                print_red("Invalid Syntax. Refer to the manual!")
 
     def v_output(self, val):
         if val:
             if os.path.isdir(os.path.dirname(val)):
                 return val
             else:
-                output.print_red("Directory doesn't exist!")
+                print_red("Directory doesn't exist!")
         else:
-            output.print_red("You must provide an output Path!")
+            print_red("You must provide an output Path!")

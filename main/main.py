@@ -1,5 +1,5 @@
 import argparse
-from common.output import output
+from common.output import *
 from generator.generator import GENERATOR
 from server import SERVER
 from custom_parser import PARSER
@@ -26,7 +26,7 @@ def main():
         server.launch()
         server.close()
     elif parser.mode == "generate":
-        output.print_blue("Starting Generator Mode!")
+        print_blue("Starting Generator Mode!")
         GENERATOR(parser)
 
 

