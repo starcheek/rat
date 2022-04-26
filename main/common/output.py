@@ -2,8 +2,8 @@ import os
 import sys
 import tabulate
 
-class OUT:
 
+class OUT:
     WHITE = '\033[1m\033[0m'
     PURPLE = '\033[1m\033[95m'
     CYAN = '\033[1m\033[96m'
@@ -82,17 +82,14 @@ class OUT:
         rtval = rtval.rstrip(" ").lstrip(" ")
         return rtval
 
-    def success(self, mess):
+    def print_green(self, mess):
         print(self.make_green(mess))
 
-    def function(self, mess):
+    def print_blue(self, mess):
         print(self.make_blue(mess))
 
-    def error(self, mess):
+    def print_red(self, mess=""):
         print(self.make_red(mess))
-
-    def exit(self, mess=""):
-        sys.exit(self.make_red(mess))
 
     def help_c_current(self):
         headers = (self.BOLD + 'Command' + self.END, self.BOLD + 'Description' + self.END)
@@ -141,7 +138,7 @@ class OUT:
         print("Example    : \n")
         print("$ connect 56\n")
         headers = (
-        self.BOLD + 'Argument' + self.END, self.BOLD + 'Type' + self.END, self.BOLD + 'Description' + self.END)
+            self.BOLD + 'Argument' + self.END, self.BOLD + 'Type' + self.END, self.BOLD + 'Description' + self.END)
         lister = [
             ('ID', 'integer', 'ID of the sessions from the list')
         ]

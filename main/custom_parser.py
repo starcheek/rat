@@ -40,10 +40,10 @@ class PARSER:
 
     def v_port(self, port):
         if not port:
-            output.exit("You need to Supply a Valid Port Number")
+            output.print_red("You need to Supply a Valid Port Number")
 
         if port <= 0 or port > 65535:
-            output.exit("Invalid Port Number")
+            output.print_red("Invalid Port Number")
 
         return port
 
@@ -52,16 +52,16 @@ class PARSER:
             if val in self.COMMANDS:
                 return val
             else:
-                output.exit("No such command found in database")
+                output.print_red("No such command found in database")
         else:
             if not hl:
-                output.exit("Invalid Syntax. Refer to the manual!")
+                output.print_red("Invalid Syntax. Refer to the manual!")
 
     def v_output(self, val):
         if val:
             if os.path.isdir(os.path.dirname(val)):
                 return val
             else:
-                output.exit("Directory doesn't exist!")
+                output.print_red("Directory doesn't exist!")
         else:
-            output.exit("You must provide an output Path!")
+            output.print_red("You must provide an output Path!")

@@ -1,8 +1,9 @@
 import argparse
 from common.output import output
+from generator.generator import GENERATOR
 from server import SERVER
-from generator import GENERATOR
 from custom_parser import PARSER
+
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
@@ -25,14 +26,8 @@ def main():
         server.launch()
         server.close()
     elif parser.mode == "generate":
-        output.function("Starting Generator Mode!")
-        generator = GENERATOR(parser)
-        if generator.source:
-            generator.patch()
-        else:
-            generator.generate()
-            generator.compile()
-            generator.clean()
+        output.print_blue("Starting Generator Mode!")
+        GENERATOR(parser)
 
 
 if __name__ == "__main__":

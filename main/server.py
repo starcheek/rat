@@ -17,13 +17,13 @@ class SERVER(COMMCENTER):
         self.SOCKET = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             self.SOCKET.bind((self.address, self.port))
-            output.success("Successfuly Bind to %s%s:%i" % (
+            output.print_green("Successfuly Bind to %s%s:%i" % (
                 output.RED,
                 self.address,
                 self.port,
             ))
         except Exception as e:
-            output.exit("Unable to bind to %s%s:%i" % (
+            output.print_red("Unable to bind to %s%s:%i" % (
                 output.RED,
                 self.address,
                 self.port,
@@ -80,7 +80,7 @@ class SERVER(COMMCENTER):
                 self.c_screenshot()
 
     def launch(self):
-        output.success("Launching Interface! Enter 'help' to get avaible commands! \n")
+        output.print_green("Launching Interface! Enter 'help' to get avaible commands! \n")
 
         while True:
             val = output.get_com(self.CURRENT)

