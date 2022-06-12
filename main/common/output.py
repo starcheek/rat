@@ -86,12 +86,8 @@ def help_c_current():
         ('sessions', 'Show all connected clients to the server'),
         ('connect', 'Connect to a Specific Client'),
         ('disconnect', 'Disconnect from Current Client'),
-        ('clear', 'Clear Screen'),
-        ('shell', 'Launch a New Terminal/Shell.'),
         ('keylogger', 'KeyLogger Module'),
-        ('sysinfo', 'Dump System, Processor, CPU and Network Information'),
-        ('screenshot', 'Take Screenshot on Target Machine and Save on Local'),
-        ('exit', 'Exit from SillyRAT!')
+        ('exit', 'Exit')
     ]
     sys.stdout.write("\n")
     print(tabulate.tabulate(lister, headers=headers))
@@ -112,7 +108,6 @@ def help_c_general():
     print(tabulate.tabulate(lister, headers=headers))
     sys.stdout.write("\n")
 
-
 def help_c_sessions():
     sys.stdout.write("\n")
     print("Info       : Display connected sessions to the server!")
@@ -120,7 +115,6 @@ def help_c_sessions():
     print("Example    : \n")
     print("$ sessions")
     sys.stdout.write("\n")
-
 
 def help_c_connect():
     sys.stdout.write("\n")
@@ -136,7 +130,6 @@ def help_c_connect():
     print(tabulate.tabulate(lister, headers=headers))
     sys.stdout.write("\n")
 
-
 def help_c_disconnect():
     sys.stdout.write("\n")
     print("Info       : Disconnect current session!")
@@ -144,25 +137,6 @@ def help_c_disconnect():
     print("Example    : \n")
     print("$ disconnect")
     sys.stdout.write("\n")
-
-
-def help_c_clear():
-    sys.stdout.write("\n")
-    print("Info       : Clear screen!")
-    print("Arguments  : None")
-    print("Example    : \n")
-    print("$ clear")
-    sys.stdout.write("\n")
-
-
-def help_c_shell():
-    sys.stdout.write("\n")
-    print("Info       : Launch a shell against client!")
-    print("Arguments  : None")
-    print("Example    : \n")
-    print("$ shell")
-    sys.stdout.write("\n")
-
 
 def help_c_keylogger():
     sys.stdout.write("\n")
@@ -179,22 +153,4 @@ def help_c_keylogger():
         ('dump', 'Dump keylogs')
     ]
     print(tabulate.tabulate(lister, headers=headers))
-    sys.stdout.write("\n")
-
-
-def help_c_sysinfo():
-    sys.stdout.write("\n")
-    print("Info       : Gathers system information!")
-    print("Arguments  : None")
-    print("Example    : \n")
-    print("$ sysinfo")
-    sys.stdout.write("\n")
-
-
-def help_c_screenshot():
-    sys.stdout.write("\n")
-    print("Info       : Screenshot the current screen and save it on server!")
-    print("Arguments  : None")
-    print("Example    : \n")
-    print("$ screenshot")
     sys.stdout.write("\n")

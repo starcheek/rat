@@ -19,7 +19,6 @@ class PARSER:
             self.address = self.v_address(prs.address)
             self.port = self.v_port(prs.port)
             self.output = self.v_output(prs.output)
-            self.source = prs.source
             self.persistence = prs.persistence
 
     def v_help(self, hl):

